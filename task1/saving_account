@@ -1,21 +1,14 @@
-import 'account.dart';
+import 'package:bank_app/account.dart';
 
-class CheckingAccount extends Account {
-  double withdrawalFee; 
+class SavingAccount extends Account {
+   double interestRate;
+   SavingAccount(String ownerName,double balance,this.interestRate)
+   :super(ownerName,balance);
+   void AddInterest(){
+    double interest=balance*interestRate;
+    balance+=interest;
+    print('$ownerName earned interest \$${interest.toStringAsFixed(2)}. New balance: \$${balance.toStringAsFixed(2)}');
 
-  CheckingAccount(String ownerName, double balance, this.withdrawalFee)
-      : super(ownerName, balance);
+   }
 
-  
-  @override
-  void withdraw(double amount) {
-    double totalAmount = amount + withdrawalFee;
-
-    if (amount > 0 && totalAmount <= balance) {
-      balance -= totalAmount;
-      print('$ownerName withdrew \$${amount.toStringAsFixed(2)} + fee \$${withdrawalFee.toStringAsFixed(2)}. New balance: \$${balance.toStringAsFixed(2)}');
-    } else {
-      print('Invalid or insufficient balance for withdrawal');
-    }
-  }
 }
